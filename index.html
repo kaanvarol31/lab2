@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#111a2e" />
+  <meta name="description" content="LingoGuess: Guess the language, discover new words, and improve your vocabulary." />
+  <title>LingoGuess — Guess the Language</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="LingoGuess home"><span class="brand-icon">✦</span> Lingo<span class="brand-highlight">Guess</span></a>
+      <span class="topbar-tag">A word. A world.</span>
+    </header>
+
+    <section class="intro" aria-labelledby="page-title">
+      <span class="eyebrow">THE LANGUAGE DISCOVERY GAME</span>
+      <h1 id="page-title">How many languages <em>can you recognize?</em></h1>
+      <p>Discover words from around the world. Guess their language, learn what they mean, and beat your best score.</p>
+    </section>
+
+    <section class="game-card" aria-label="Language guessing game">
+      <div class="game-head">
+        <div class="round-label" id="round-label">QUESTION 1 OF 10</div>
+        <div class="score-pill">✦ <span id="score">0</span> <span>POINTS</span></div>
+      </div>
+      <div class="progress-track" id="progress-track" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><div class="progress-fill" id="progress-fill"></div></div>
+
+      <div id="question-screen">
+        <div class="word-panel">
+          <span class="panel-caption">WHICH LANGUAGE IS THIS WORD FROM?</span>
+          <h2 id="word" lang="und">—</h2>
+          <div class="meaning"><span class="meaning-icon" aria-hidden="true">◈</span> Meaning: <strong id="meaning">—</strong></div>
+        </div>
+        <div class="choice-grid" id="choices" aria-label="Choose the language"></div>
+        <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+        <button class="primary-button" id="next-button" type="button" hidden>Next word <span aria-hidden="true">→</span></button>
+      </div>
+
+      <div id="result-screen" class="result-screen" hidden>
+        <div class="result-emoji" aria-hidden="true">✦</div>
+        <p class="eyebrow">ROUND COMPLETE</p>
+        <h2 id="result-title">Nicely done!</h2>
+        <p class="result-score"><span id="final-score">0</span><span>/ 10</span></p>
+        <p id="result-message"></p>
+        <button class="primary-button" id="restart-button" type="button">Play again <span aria-hidden="true">↻</span></button>
+      </div>
+    </section>
+
+    <section class="bottom-panel" aria-label="Game settings">
+      <div>
+        <h3>Make it your game</h3>
+        <p>Choose a challenge level. Your next round will use this setting.</p>
+      </div>
+      <div class="settings">
+        <label for="difficulty">Difficulty</label>
+        <select id="difficulty">
+          <option value="easy">Easy · Familiar languages</option>
+          <option value="mixed" selected>Mixed · Around the world</option>
+          <option value="hard">Hard · Language explorer</option>
+        </select>
+        <button type="button" id="new-game-button" class="outline-button">New round</button>
+      </div>
+    </section>
+    <footer>Made for curious minds. One word at a time. 🌍</footer>
+  </main>
+</body>
+</html>
