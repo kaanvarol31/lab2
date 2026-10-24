@@ -80,10 +80,49 @@ const WORDS = [
   {word:'פרפר',language:'Hebrew',meaning:'Butterfly'},
   {word:'חלון',language:'Hebrew',meaning:'Window'}
 ];
+const API_URL = "https://tapdict.com/api/v1";
 
+async function loadAPIWords() {
+  const searches = ["house", "water", "sun", "book", "love"];
+
+  try {
+    const results = await Promise.all(
+      searches.map(async (term) => {
+        const url =
+          `${API_URL}/dictionaries/norwegian-bokmal-english/search?q=${encodeURIComponent(term)}&limit=10`;
+
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("API request failed");
+
+        const data = await response.json();
+        return data.results || [];
+      })
+    );
+
+    const seen = new Set();
+
+    for (const entries of results) {
+      for (const entry of entries) {
+        if (!entry.headword || !entry.gloss) continue;
+
+        const word = entry.headword.trim().toLowerCase();
+        if (seen.has(word)) continue;
+        seen.add(word);
+
+        WORDS.push({
+          word: entry.headword,
+          language: "Norwegian",
+          meaning: entry.gloss
+        });
+      }
+    }
+  } catch (error) {
+    console.error("Could not load API words:", error);
+  }
+}
 const LEVELS = {
   easy: ['French','Spanish','Italian','German','Portuguese'],
-  mixed: ['French','Spanish','Italian','German','Portuguese','Turkish','Bulgarian','Russian','Greek','Japanese','Korean','Mandarin Chinese','Swedish','Finnish','Hungarian','Polish','Georgian','Arabic','Hebrew'],
+  mixed: ['French','Spanish','Italian','German','Portuguese','Turkish','Bulgarian','Russian','Greek','Japanese','Korean','Mandarin Chinese','Swedish','Finnish','Hungarian','Polish','Georgian','Arabic','Hebrew','Norwegian'],
   hard: ['Turkish','Bulgarian','Russian','Greek','Japanese','Korean','Mandarin Chinese','Finnish','Hungarian','Polish','Georgian','Arabic','Hebrew']
 };
 const ROUND_LENGTH = 10;
@@ -98,8 +137,13 @@ function shuffle(items) {
   }
   return result;
 }
+let apiWordsLoaded = false;
+async function startGame() {
+  if (!apiWordsLoaded) {
+    await loadAPIWords();
+    apiWordsLoaded = true;
+  }
 
-function startGame() {
   languages = LEVELS[$('difficulty').value];
   deck = shuffle(WORDS.filter(item => languages.includes(item.language))).slice(0, ROUND_LENGTH);
   index = 0;
