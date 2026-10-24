@@ -6,8 +6,11 @@
   <meta name="theme-color" content="#111a2e" />
   <meta name="description" content="LingoGuess: Guess the language, discover new words, and improve your vocabulary." />
   <title>LingoGuess — Guess the Language</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="app.js" defer></script>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <link rel="stylesheet" href="./style.css" />
+  <script src="./app.js" defer></script>
 </head>
 <body>
   <main class="shell">
@@ -67,5 +70,13 @@
     </section>
     <footer>Made for curious minds. One word at a time. 🌍</footer>
   </main>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js", { scope: "./" })
+          .catch((error) => console.warn("Service worker registration failed:", error));
+      });
+    }
+  </script>
 </body>
 </html>

@@ -1,0 +1,25 @@
+{
+  "id": "./",
+  "name": "LingoGuess — Guess the Language",
+  "short_name": "LingoGuess",
+  "description": "Guess the language, discover new words, and improve your vocabulary.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#111a2e",
+  "theme_color": "#111a2e",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
